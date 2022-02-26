@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Wordle Optimizer
+        </title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;700&display=swap" rel="stylesheet">
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+    <body>
+    <section class="header">
+        <nav>
+
+        <h1 class="logo-title">Wordle Solver</h1>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+            <ul>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="index.html#about">ABOUT</a></li>
+                <li><a href="index.html#contact">CONTACT</a></li>
+
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+
+
+    <div class="text-box">
+
+    <h2 id="top-part">Enter the words!</h2>
+
+        </div>
+        </section>
+      <section class="words">
+        <div class="first-guess"> <p>Hello</p>
+        </div>
+      </section>
+
+
+
+
+
+        <section class="cta" id="contact">
+        <h1>Reach out to us! <br> We'd love to hear from you!</h1>
+        <a href = "" class="hero-btn">CONTACT US</a>
+
+        </section>
+
+
+        <section class="footer" id="about">
+        <h4>About</h4>
+            <p>This Wordle Solver relies on results from information theory studies and
+              iterative feedback from each guess.</p>
+            <div class="icons">
+                <i class="fa fa-instagram"></i>
+                <i class="fa fa-github"></i>
+                <i class="fa fa-linkedin"></i>
+
+            </div>
+            <p> Made with <i class="fa fa-heart-o"></i> by Navneeth.</p>
+        </section>
+
+
+
+        <script>
+
+        var navLinks = document.getElementById('navLinks');
+        function showMenu() {
+            navLinks.style.right = "0";
+
+        }
+            function hideMenu() {
+                navLinks.style.right = "-200px";
+            }
+
+        </script>
+    </body>
+</html>

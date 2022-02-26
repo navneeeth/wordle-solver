@@ -51,7 +51,7 @@ def processWord(value):
             lettersPositionSum[wordIndex] = lettersPositionSum[wordIndex] + 1
             wordIndex = wordIndex + 1
         processedWords.append(value)
-
+'''
 with open(filename, 'r') as csvfile:
     datareader = csv.reader(csvfile)
     for row in datareader:
@@ -80,14 +80,16 @@ for i in movie_frequency:
 
 #for i in range(0, 5):
     #print(movie_frequency_probability[i])
-
+'''
 def takeSecond(elem):
     return elem[1]
+
+'''
 movie_frequency_probability.sort(key=takeSecond, reverse=True)
 print("5-letter Movie words probability after sorting")
 for i in range(0, 50):
     print(movie_frequency_probability[i])
-
+'''
 
 
 
@@ -155,8 +157,8 @@ for i in range(0, 50):
 '''
 
 
-wordlist_file = 'sgb-words.txt'
-
+#wordlist_file = 'sgb-words.txt'
+wordlist_file = 'english_words_original_wordle.txt'
 
 ccfile = open(wordlist_file, "r")
 for aline in ccfile:
@@ -272,7 +274,11 @@ def weightedSum1(processedWords, lettersProbabilityPerLetterDict, lettersFrequen
     #print(wordWeightage)
     print('Sorting word weightage per index per specific letter:')
     wordWeightage.sort(key=takeSecond, reverse=True)
-    for i in range(0, int(len(wordWeightage))):
+    x = len(wordWeightage)
+    if(len(wordWeightage))>15:
+        x = 15
+
+    for i in range(0, x):
         print(wordWeightage[i])
 
 def weightedSum2(processedWords, lettersProbabilityDict, lettersFrequencyList):
@@ -296,7 +302,11 @@ def weightedSum2(processedWords, lettersProbabilityDict, lettersFrequencyList):
     #print(wordWeightage)
     print('Sorting word weightage per index per probability:')
     wordWeightage.sort(key=takeSecond, reverse=True)
-    for i in range(0, int(len(wordWeightage))):
+    x = len(wordWeightage)
+    if(len(wordWeightage))>15:
+        x = 15
+
+    for i in range(0, x):
         print(wordWeightage[i])
 
 def weightedSum3(processedWords, lettersFrequencyList):
@@ -320,7 +330,11 @@ def weightedSum3(processedWords, lettersFrequencyList):
     #print(wordWeightage)
     print('Sorting word weightage per probability:')
     wordWeightage.sort(key=takeSecond, reverse=True)
-    for i in range(0, int(len(wordWeightage))):
+    x = len(wordWeightage)
+    if(len(wordWeightage))>15:
+        x = 15
+
+    for i in range(0, x):
         print(wordWeightage[i])
 
 
