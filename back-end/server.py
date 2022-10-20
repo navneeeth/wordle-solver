@@ -73,7 +73,8 @@ def declareVariables():
 
 def init():
     declareVariables()
-    readMovieFile()
+    #readMovieFile()
+    readWordleWords()
     global lettersFrequencyList
     lettersFrequencyList = calculateLettersFrequencyList()
     global lettersProbabilityDict, lettersProbabilityPerLetterDict
@@ -113,6 +114,17 @@ def processWord(value):
             lettersPositionSum[wordIndex] = lettersPositionSum[wordIndex] + 1
             wordIndex = wordIndex + 1
         processedWords.append(value)
+
+def readWordleWords():
+    global word_count
+    wordlist_file = 'english_words_original_wordle.txt'
+    ccfile = open(wordlist_file, "r")
+    for aline in ccfile:
+        value = aline.split('\n')
+        #print(value)
+        processWord(value[0])
+        word_count = word_count + 1
+    ccfile.close()
 
 def readMovieFile():
     i = 0
@@ -541,6 +553,7 @@ def updateLettersCount(word, lettersDict, lettersPositionDict, lettersPositionSu
         lettersPositionSum[word_index] = lettersPositionSum[word_index] - 1
         word_index = word_index + 1
 
+'''
 def filterYGB(processedWords, guess, yellowSet, greenSet, blackSet, lettersDict, lettersPositionDict, lettersPositionSum):
     newlyProcessedWords = []
 
@@ -582,7 +595,128 @@ def filterYGB(processedWords, guess, yellowSet, greenSet, blackSet, lettersDict,
     print(lettersPositionSum)
     print(newlyProcessedWords)
     return [newlyProcessedWords, lettersDict, lettersPositionDict, lettersPositionSum, lettersFrequencyL]
+'''
 
+def filterYGB(ygb_set, processedWords, guess, yellowSet, greenSet, blackSet, lettersDict, lettersPositionDict, lettersPositionSum):
+    newlyProcessedWords = []
+    g_and_g_flag = 0
+    g_and_g_letters = []
+    g_and_y_flag = 0
+    g_and_y_letters = []
+    y_and_b_flag = 0
+    y_and_b_letters = []
+    g_and_b_flag = 0
+    g_and_b_letters = []
+    y_and_y_flag = 0
+    y_and_y_letters = []
+
+    letters_in_guess = {}
+    for j in range(0, len(guess)):
+        if(guess[j] not in letters_in_guess):
+            letters_in_guess[guess[j]] = ygb_set[j]
+        else:
+            first_time = letters_in_guess[guess[j]]
+            second_time = ygb_set[j]
+            if(first_time == 'G'):
+                if(second_time == 'G'):
+                    g_and_g_flag = 1
+                    g_and_g_letters.append(guess[j])
+
+                elif(second_time == 'Y'):
+                    g_and_y_flag = 1
+                    g_and_y_letters.append(guess[j])
+                    #g_and_y_letters.append(j)
+
+                else:
+                    g_and_b_flag = 1
+                    g_and_b_letters.append(guess[j])
+
+            elif(first_time == 'Y'):
+                if(second_time == 'G'):
+                    g_and_y_flag = 1
+                    g_and_y_letters.append(guess[j])
+                    #g_and_y_letters.append(letters_in_guess[guess[j]])
+
+                elif(second_time == 'Y'):
+                    y_and_y_flag = 1
+                    y_and_y_letters.append(guess[j])
+                    #y_and_y_letters.append(letters_in_guess[guess[j]])
+
+                else:
+                    y_and_b_flag = 1
+                    y_and_b_letters.append(guess[j])
+
+            else:
+                if(second_time == 'G'):
+                    g_and_b_flag = 1
+                    g_and_b_letters.append(guess[j])
+
+                if(second_time == 'Y'):
+                    y_and_b_flag = 1
+                    y_and_b_letters.append(guess[j])
+
+                else:
+                    continue
+    print('g and b')
+    print(g_and_b_letters)
+    print(y_and_b_letters)
+    for i in processedWords:
+        flag = 0
+        wordIndex = 0
+        if(g_and_g_flag):
+            if(not i.count(g_and_g_letters[0].lower()) == 2):
+                flag = 1
+        if(g_and_y_flag):
+            if(not i.count(g_and_y_letters[0].lower()) == 2):
+                flag = 1
+        if(y_and_b_flag):
+            if(not i.count(y_and_b_letters[0].lower()) == 1):
+                flag = 1
+        if(g_and_b_flag):
+            if(not i.count(g_and_b_letters[0].lower()) == 1):
+                flag = 1
+        if(y_and_y_flag):
+            if(not i.count(y_and_y_letters[0].lower()) == 2):
+                flag = 1
+        if(flag):
+            #print('Flag found for word '+i)
+            updateLettersCount(i, lettersDict, lettersPositionDict, lettersPositionSum)
+            continue
+        for j in range(0, len(guess)):
+
+            if(blackSet[j]):
+                if(guess[j].lower() in i and (guess[j] not in g_and_b_letters and guess[j] not in y_and_b_letters)):
+                    flag = 1
+                    #print('Not including word '+i)
+                    break
+            elif(greenSet[j]):
+                if(not guess[j].lower() == i[j]):
+                    flag = 1
+                    break
+            else:
+                if(not guess[j].lower() in i):
+                    flag = 1
+                    break
+                if(guess[j].lower() == i[j]):
+                    flag = 1
+                    break
+
+        if(flag):
+                #print('Flag found for word '+i)
+                updateLettersCount(i, lettersDict, lettersPositionDict, lettersPositionSum)
+                continue
+        newlyProcessedWords.append(i)
+    print('Value of lettersDict')
+    print(lettersDict)
+    lettersFrequencyL = getLettersFrequencyList(sum(lettersDict.values()), lettersDict)
+    print("Value of letters sorted by frequency")
+    print(lettersFrequencyL)
+    print('Value of letters position Dict')
+    print(lettersPositionDict)
+    print('Value of sums')
+    print(lettersPositionSum)
+    print(newlyProcessedWords)
+    return [newlyProcessedWords, lettersDict, lettersPositionDict, lettersPositionSum, lettersFrequencyL]
 
 
 
@@ -606,8 +740,8 @@ def needMoreLettersRoute(processedWords, lettersProbabilityDict, lettersFrequenc
     return weightedSum2(processedWords, lettersProbabilityDict, lettersFrequencyList)
 
 
-def guessProcess(guess, processedWords, yellowSet, greenSet, blackSet, lettersProbabilityDict, lettersProbabilityPerLetterDict, lettersFrequencyList, lettersPositionDict, correctSet, incorrectSet, lettersDict, lettersPositionSum):
-    retr = filterYGB(processedWords, guess, yellowSet, greenSet, blackSet, lettersDict, lettersPositionDict, lettersPositionSum)
+def guessProcess(ygb_set, guess, processedWords, yellowSet, greenSet, blackSet, lettersProbabilityDict, lettersProbabilityPerLetterDict, lettersFrequencyList, lettersPositionDict, correctSet, incorrectSet, lettersDict, lettersPositionSum):
+    retr = filterYGB(ygb_set, processedWords, guess, yellowSet, greenSet, blackSet, lettersDict, lettersPositionDict, lettersPositionSum)
     processedWords = retr[0]
     lettersDict = retr[1]
     lettersPositionDict = retr[2]
@@ -615,7 +749,7 @@ def guessProcess(guess, processedWords, yellowSet, greenSet, blackSet, lettersPr
     lettersFrequencyList = retr[4]
     print(len(processedWords))
     if(len(processedWords) == 1):
-        return "Word found! Congratulations!"
+        print("Word found! Congratulations!")
     lettersProbabilityDict = getLettersProbability(lettersPositionDict, lettersPositionSum)
     lettersProbabilityPerLetterDict = getLettersProbabilityPerLetter(lettersPositionDict, lettersDict)
     #print(firstProcessedWords)
@@ -675,8 +809,15 @@ def processGuess(guessSet, noOfTimes, yellow_set, green_set, black_set, correctS
         blackSet = black_set[count]
         correct_set = correctSet[count]
         incorrect_set = incorrectSet[count]
-
-        return_val = guessProcess(guess, processedWords, yellowSet, greenSet, blackSet, lettersProbabilityDict, lettersProbabilityPerLetterDict, lettersFrequencyList, lettersPositionDict, correct_set, incorrect_set, lettersDict, lettersPositionSum)
+        ygb_set = ''
+        for i in range(5):
+            if(yellowSet[i] == 1):
+                ygb_set = ygb_set + 'Y'
+            elif(greenSet[i] == 1):
+                ygb_set = ygb_set + 'G'
+            else:
+                ygb_set = ygb_set + 'B'
+        return_val = guessProcess(ygb_set, guess, processedWords, yellowSet, greenSet, blackSet, lettersProbabilityDict, lettersProbabilityPerLetterDict, lettersFrequencyList, lettersPositionDict, correct_set, incorrect_set, lettersDict, lettersPositionSum)
         if(type(return_val) == str):
             print(return_val)
 
@@ -722,17 +863,17 @@ def guessHandling():
    correct_set = ast.literal_eval(correct_set)
    incorrect_set = ast.literal_eval(incorrect_set)
    print(first_guess[0])
-   print(first_guess[1])
+   #print(first_guess[1])
    print(yellow_set[0])
-   print(yellow_set[1])
+   #print(yellow_set[1])
    print(green_set[0])
-   print(green_set[1])
+   #print(green_set[1])
    print(black_set[0])
-   print(black_set[1])
+   #print(black_set[1])
    print(correct_set[0])
-   print(correct_set[1])
+   #print(correct_set[1])
    print(incorrect_set[0])
-   print(incorrect_set[1])
+   #print(incorrect_set[1])
 
    ans = processGuess(first_guess, int(guess_number), yellow_set, green_set, black_set, correct_set, incorrect_set)
    json_data = json.loads(extractJSONFromString(ans))

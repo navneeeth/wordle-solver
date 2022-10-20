@@ -14,6 +14,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;700&display=swap" rel="stylesheet">
       <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+      <script src="index.js">
+      </script>
     </head>
     <body>
     <section class="header">
@@ -33,26 +35,131 @@
         </nav>
 
 
-    <div class="text-box">
 
-    <h2 id="top-part">Enter the words!</h2>
-
-        </div>
         </section>
       <section class="words">
-        <div class="first-guess"> <p>Hello</p>
+        <section class="midrowright" id="top-guesses-section">
+          <div id="top-guesses">
+            <div id="top-guesses-header">
+                <h3><u>Top Guesses</u></h3>
+            </div>
+            <div id="top-words">
+              <table class="top-words-table">
+  <tr>
+    <th>Word</th>
+    <th>Probability</th>
+  </tr>
+  <tr>
+    <td id="tw1">REBUT</td>
+    <td id="tp1">28.14%</td>
+  </tr>
+  <tr>
+    <td id="tw2">AWAKE</td>
+    <td id="tp2">28.05%</td>
+  </tr>
+  <tr>
+    <td id="tw3">CIGAR</td>
+    <td id="tp3">27.10%</td>
+  </tr>
+  <tr>
+    <td id="tw4">SISSY</td>
+    <td id="tp4">26.98%</td>
+  </tr>
+  <tr>
+    <td id="tw5">EVADE</td>
+    <td id="tp5">24.88%</td>
+  </tr>
+  <tr>
+    <td id="tw6">STOOL</td>
+    <td id="tp6">23.11%</td>
+  </tr>
+  <tr>
+    <td id="tw7">FOCAL</td>
+    <td id="tp7">21.50%</td>
+  </tr>
+  <tr>
+    <td id="tw8">BROWN</td>
+    <td id="tp8">47%</td>
+  </tr>
+  <tr>
+    <td id="tw9">SAINT</td>
+    <td id="tp9">46%</td>
+  </tr>
+  <tr>
+    <td id="tw10">CARLO</td>
+    <td id="tp10">45%</td>
+  </tr>
+</table>
+            </div>
+          </div>
+        </section>
+        <section class="midrowleft">
+        <div class="first-guess">
+<div class="row1"><p id="r1w1" onclick="letterClick(this.id)"> </p></div>
+<div class="row1"><p id="r1w2" onclick="letterClick(this.id)"> </p></div>
+<div class="row1"><p id="r1w3" onclick="letterClick(this.id)"> </p></div>
+<div class="row1"><p id="r1w4" onclick="letterClick(this.id)"> </p></div>
+<div class="row1"><p id="r1w5" onclick="letterClick(this.id)"> </p></div>
+<br>
+<div class="row2"><p id="r2w1" onclick="letterClick(this.id)"> </p></div>
+<div class="row2"><p id="r2w2" onclick="letterClick(this.id)"> </p></div>
+<div class="row2"><p id="r2w3" onclick="letterClick(this.id)"> </p></div>
+<div class="row2"><p id="r2w4" onclick="letterClick(this.id)"> </p></div>
+<div class="row2"><p id="r2w5" onclick="letterClick(this.id)"> </p></div>
+<br>
+<div class="row3"><p id="r3w1" onclick="letterClick(this.id)"> </p></div>
+<div class="row3"><p id="r3w2" onclick="letterClick(this.id)"> </p></div>
+<div class="row3"><p id="r3w3" onclick="letterClick(this.id)"> </p></div>
+<div class="row3"><p id="r3w4" onclick="letterClick(this.id)"> </p></div>
+<div class="row3"><p id="r3w5" onclick="letterClick(this.id)"> </p></div>
+<br>
+<div class="row4"><p id="r4w1" onclick="letterClick(this.id)"> </p></div>
+<div class="row4"><p id="r4w2" onclick="letterClick(this.id)"> </p></div>
+<div class="row4"><p id="r4w3" onclick="letterClick(this.id)"> </p></div>
+<div class="row4"><p id="r4w4" onclick="letterClick(this.id)"> </p></div>
+<div class="row4"><p id="r4w5" onclick="letterClick(this.id)"> </p></div>
+<br>
+<div class="row5"><p id="r5w1" onclick="letterClick(this.id)"> </p></div>
+<div class="row5"><p id="r5w2" onclick="letterClick(this.id)"> </p></div>
+<div class="row5"><p id="r5w3" onclick="letterClick(this.id)"> </p></div>
+<div class="row5"><p id="r5w4" onclick="letterClick(this.id)"> </p></div>
+<div class="row5"><p id="r5w5" onclick="letterClick(this.id)"> </p></div>
+<br>
+<div class="row6"><p id="r6w1" onclick="letterClick(this.id)"> </p></div>
+<div class="row6"><p id="r6w2" onclick="letterClick(this.id)"> </p></div>
+<div class="row6"><p id="r6w3" onclick="letterClick(this.id)"> </p></div>
+<div class="row6"><p id="r6w4" onclick="letterClick(this.id)"> </p></div>
+<div class="row6"><p id="r6w5" onclick="letterClick(this.id)"> </p></div>
+
         </div>
+      </section>
+
+        <section id="guessProcess">
+        <div class="text-box">
+
+        <h2 id="top-part">Enter the <span id = 'current_guess_span'>first</span> word:</h2>
+
+            </div>
+
+
+            <input type="text" id="word_input" name="word_input">
+            <br>
+            <input type="submit" id="word-submit" onclick="validateWord()">
+          </section>
+          <section id="enterBoxes" style="visibility:hidden">
+            <div class="text-box">
+
+            <h2 id="top-part">Validate the <span id = 'current_guess_span_two'>first</span> word by clicking on the letters!</h2>
+                </div>
+                <br>
+                <input type="submit" value="Get Words" id="word-submit" onclick="validateBoxes()">
+          </section>
       </section>
 
 
 
 
 
-        <section class="cta" id="contact">
-        <h1>Reach out to us! <br> We'd love to hear from you!</h1>
-        <a href = "" class="hero-btn">CONTACT US</a>
-
-        </section>
 
 
         <section class="footer" id="about">
@@ -70,17 +177,6 @@
 
 
 
-        <script>
 
-        var navLinks = document.getElementById('navLinks');
-        function showMenu() {
-            navLinks.style.right = "0";
-
-        }
-            function hideMenu() {
-                navLinks.style.right = "-200px";
-            }
-
-        </script>
     </body>
 </html>
