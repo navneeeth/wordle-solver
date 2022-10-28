@@ -1,6 +1,8 @@
 # wordle-solver
-A solver for Wordle based on text analytics. Front-end to be updated soon.
-To run or test the app on Python, run the 'optimizer.py' file and follow along the prompts.
-Y-Yellow Letter.
-G-Green Letter.
-B-Black Letter.
+A solver for the popular 'NY Times' Wordle game developed based on text analytics. 
+
+The front-end is hosted as an AWS EC2 instance and the back-end is hosted on Heroku. 
+
+Front-end Stack: HTML, CSS, JS. 
+
+Back-end Stack: Python Flask.
